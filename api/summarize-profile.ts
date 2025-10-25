@@ -1,4 +1,3 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenAI } from "@google/genai";
 
 const FALLBACK_SUMMARY = `
@@ -12,7 +11,7 @@ Based on your responses, you appear to be someone who is thoughtful about your f
 To get a more detailed AI-powered analysis, please ensure your connection is stable and try again.
 `;
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: any, res: any) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
