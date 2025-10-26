@@ -1,4 +1,4 @@
-# Nischint - Financial Personality Assessment
+# Nischint - Financial Personality Assessment Assistant
 
 <div align="center">
 
