@@ -1,6 +1,16 @@
 # Nischint - Financial Personality Assessment
 
-A modern web application that provides personalized financial assessments through an adaptive questionnaire system. The application analyzes user responses to create comprehensive financial profiles and insights.
+<div align="center">
+
+![Nischint Logo](icon.png)
+
+**A modern web application that provides personalized financial assessments through an adaptive questionnaire system**
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/EntroproxTheOne/nishchint)
+
+</div>
+
+The application analyzes user responses to create comprehensive financial profiles and insights.
 
 ## Overview
 
