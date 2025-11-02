@@ -14,9 +14,13 @@ The application analyzes user responses to create comprehensive financial profil
 
 ## Overview
 
-> Why does financial advice always fail gig workers? It ignores **volatility**. This project's core is a "Foresight Engine" for an AI agent that embraces it. Instead of a single bad guess, it provides a **statistically guaranteed 90% "surity" range** for your income and expenses. It's the brain for an agent that *actually* helps you budget for uncertainty.
+> Nischint is the user-facing "analysis engine" of a complete, private financial ecosystem. It's designed to solve two core problems: **manual data entry** and **income volatility**.
 >
-> **[See the full model trained from scratch in Google Colab!](https://colab.research.google.com/drive/1Es5Sg0MJ-fuNrRniCJbYPb341s-feDic?usp=sharing)**
+> 1.  **[SMS-Parser (The Data Source)](https://github.com/EntroproxTheOne/SMS-Parser):** A 100% private, offline-first Python tool that automatically parses your bank SMS messages into a local database.
+>
+> 2.  **[The "Foresight Engine" (The Model)](https://colab.research.google.com/drive/1Es5Sg0MJ-fuNrRniCJbYPb341s-feDic?usp=sharing):** A Conformal Prediction model (built from scratch in this Colab) that analyzes this data to provide a **statistically guaranteed 90% "surity" range** for a user's volatile income and expenses.
+
+Nischint is the final piece: a modern web app that uses this data to provide a personalized financial assessment through an adaptive questionnaire, all powered by advanced language processing.
 
 Nischint is the web application that uses this engine to provide a personalized financial assessment. It combines foundational questions with dynamically generated follow-up questions to create a comprehensive financial profile, all powered by advanced language processing.
 
