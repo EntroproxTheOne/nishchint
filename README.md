@@ -14,7 +14,11 @@ The application analyzes user responses to create comprehensive financial profil
 
 ## Overview
 
-Nischint combines foundational questions with dynamically generated follow-up questions to create a personalized financial assessment experience. The application analyzes user responses and provides tailored insights powered by advanced language processing.
+> Why does financial advice always fail gig workers? It ignores **volatility**. This project's core is a "Foresight Engine" for an AI agent that embraces it. Instead of a single bad guess, it provides a **statistically guaranteed 90% "surity" range** for your income and expenses. It's the brain for an agent that *actually* helps you budget for uncertainty.
+>
+> **[See the full model trained from scratch in Google Colab!](https://colab.research.google.com/drive/1Es5Sg0MJ-fuNrRniCJbYPb341s-feDic?usp=sharing)**
+
+Nischint is the web application that uses this engine to provide a personalized financial assessment. It combines foundational questions with dynamically generated follow-up questions to create a comprehensive financial profile, all powered by advanced language processing.
 
 ## Features
 
