@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Button } from './ui/Button';
-import { Card } from './ui/Card';
-import { TargetIcon, BrainCircuitIcon, ZapIcon, UserIcon, GenderIcon, ArrowRightIcon } from './ui/Icons';
+import { motion } from 'framer-motion';
+import { TargetIcon, BrainCircuitIcon, ZapIcon, ArrowRightIcon } from './ui/Icons';
 import { UserProfile } from '../types';
 
-interface LandingPageProps {
+interface QuizPageProps {
     onStart: (userData: UserProfile) => void;
+    onBack?: () => void;
 }
 
 const FeatureCard: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ icon, title, children }) => (
@@ -16,7 +16,7 @@ const FeatureCard: React.FC<{ icon: React.ReactNode; title: string; children: Re
     </div>
 );
 
-const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
+const QuizPage: React.FC<QuizPageProps> = ({ onStart, onBack }) => {
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
@@ -34,13 +34,27 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
     const canStart = name.trim().length > 0 || age || gender;
 
     return (
-        <div className="max-w-2xl mx-auto">
-            <div className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-8 md:p-10">
-                <div className="text-center">
-                    <h2 className="text-2xl font-bold text-white mb-2">
+        <div className="w-full max-w-4xl mx-auto p-6">
+            {onBack && (
+                <motion.button
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    onClick={onBack}
+                    className="mb-4 px-4 py-2 bg-gray-800/50 border border-white/10 rounded-xl text-white hover:bg-gray-700/50 transition-colors"
+                >
+                    ← Back to Home
+                </motion.button>
+            )}
+            <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-8 md:p-10"
+            >
+                <div className="text-center mb-8">
+                    <h2 className="text-3xl font-bold text-white mb-2">
                         Welcome to Your Financial Journey
                     </h2>
-                    <p className="text-gray-400 mb-8 max-w-lg mx-auto">
+                    <p className="text-gray-400 max-w-lg mx-auto">
                         Answer a few quick questions and we'll create a personalized financial profile that understands your unique money personality, goals, and preferences.
                     </p>
                 </div>
@@ -63,11 +77,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                     </h4>
                     <div className="space-y-4">
                         <div>
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                            <label htmlFor="quiz-name" className="block text-sm font-medium text-gray-300 mb-2">
                                 Name <span className="text-yellow-400">*</span>
                             </label>
                             <input
-                                id="name"
+                                id="quiz-name"
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
@@ -78,11 +92,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label htmlFor="age" className="block text-sm font-medium text-gray-300 mb-2">
+                                <label htmlFor="quiz-age" className="block text-sm font-medium text-gray-300 mb-2">
                                     Age
                                 </label>
                                 <input
-                                    id="age"
+                                    id="quiz-age"
                                     type="number"
                                     value={age}
                                     onChange={(e) => setAge(e.target.value)}
@@ -93,11 +107,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="gender" className="block text-sm font-medium text-gray-300 mb-2">
+                                <label htmlFor="quiz-gender" className="block text-sm font-medium text-gray-300 mb-2">
                                     Gender
                                 </label>
                                 <select
-                                    id="gender"
+                                    id="quiz-gender"
                                     value={gender}
                                     onChange={(e) => setGender(e.target.value)}
                                     className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent bg-gray-800/50 text-white"
@@ -114,23 +128,26 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 </form>
 
                 <div className="text-center">
-                    <Button 
-                        onClick={handleSubmit} 
-                        size="lg"
+                    <button
+                        onClick={handleSubmit}
                         disabled={!canStart}
-                        className={!canStart ? 'opacity-50 cursor-not-allowed' : ''}
+                        className={`px-8 py-4 bg-yellow-400 text-black rounded-xl font-bold text-lg hover:bg-yellow-500 transition-colors flex items-center gap-2 mx-auto ${
+                            !canStart ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
                     >
-                        Start Your Financial Assessment <ArrowRightIcon />
-                    </Button>
+                        Start Your Financial Assessment
+                        <ArrowRightIcon />
+                    </button>
                     {!canStart && (
                         <p className="text-sm text-gray-400 mt-2">
                             Please enter at least your name to continue
                         </p>
                     )}
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 };
 
-export default LandingPage;
+export default QuizPage;
+

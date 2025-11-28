@@ -25,11 +25,16 @@ export default async function handler(req: any, res: any) {
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+    const userContext = [
+      userData.name && `Name: ${userData.name}`,
+      userData.age && `Age: ${userData.age}`,
+      userData.gender && `Gender: ${userData.gender}`,
+    ].filter(Boolean).join('\n');
+
     const systemPrompt = `You are Nischint, an empathetic financial co-pilot. Your job is to generate the next 5 multiple-choice questions for a financial personality assessment.
 
 USER CONTEXT:
-- Age: ${userData.age}
-- Gender: ${userData.gender}
+${userContext || '- No specific user context provided'}
 - Current Batch: ${currentBatch}
 
 PREVIOUS ANSWERS:

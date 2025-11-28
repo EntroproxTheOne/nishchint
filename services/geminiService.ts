@@ -36,7 +36,7 @@ export const summarizeProfile = async (profile: UserProfile): Promise<string> =>
 
 export const generateQuestions = async (
     previousAnswers: Answer[],
-    userData: { age: number, gender: string },
+    userData: UserProfile,
     currentBatch: number
 ): Promise<Question[]> => {
 

@@ -1,8 +1,9 @@
 import { UserProfile, Question } from './types';
 
 export const INITIAL_USER_DATA: UserProfile = {
-    age: 28,
-    gender: 'male',
+    name: undefined,
+    age: undefined,
+    gender: undefined,
 };
 
 export const TOTAL_QUESTIONS = 20;

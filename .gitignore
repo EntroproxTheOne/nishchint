@@ -13,6 +13,11 @@ dist
 dist-ssr
 *.local
 
+# Database
+*.db
+*.db-shm
+*.db-wal
+
 # Environment variables
 .env
 .env.local
