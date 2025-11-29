@@ -78,6 +78,14 @@ const MoneyTracker: React.FC = () => {
         }).format(amount);
     };
 
+    // Format currency compact for mobile (5800 -> $5.8k)
+    const formatCurrencyCompact = (amount: number) => {
+        if (amount >= 1000) {
+            return `$${(amount / 1000).toFixed(amount >= 10000 ? 0 : 1)}k`;
+        }
+        return `$${amount}`;
+    };
+
     // Format date
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('en-US', {
@@ -121,16 +129,17 @@ const MoneyTracker: React.FC = () => {
                 </motion.div>
 
                 {/* Financial Overview Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-8">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.1 }}
-                        className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-6"
+                        className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-4 md:p-6"
                     >
-                        <div className="text-gray-400 text-sm mb-2">Total Income</div>
-                        <div className="text-3xl font-bold text-green-400">
-                            {formatCurrency(overview.totalIncome)}
+                        <div className="text-gray-400 text-xs md:text-sm mb-2">Total Income</div>
+                        <div className="text-2xl md:text-3xl font-bold text-green-400">
+                            <span className="md:hidden">{formatCurrencyCompact(overview.totalIncome)}</span>
+                            <span className="hidden md:inline">{formatCurrency(overview.totalIncome)}</span>
                         </div>
                     </motion.div>
 
@@ -138,11 +147,12 @@ const MoneyTracker: React.FC = () => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.2 }}
-                        className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-6"
+                        className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-4 md:p-6"
                     >
-                        <div className="text-gray-400 text-sm mb-2">Total Expenses</div>
-                        <div className="text-3xl font-bold text-red-400">
-                            {formatCurrency(overview.totalExpenses)}
+                        <div className="text-gray-400 text-xs md:text-sm mb-2">Total Expenses</div>
+                        <div className="text-2xl md:text-3xl font-bold text-red-400">
+                            <span className="md:hidden">{formatCurrencyCompact(overview.totalExpenses)}</span>
+                            <span className="hidden md:inline">{formatCurrency(overview.totalExpenses)}</span>
                         </div>
                     </motion.div>
 
@@ -150,13 +160,14 @@ const MoneyTracker: React.FC = () => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="bg-gradient-to-br from-yellow-400/20 to-yellow-500/10 backdrop-blur-md border border-yellow-400/30 rounded-2xl p-6"
+                        className="col-span-2 md:col-span-1 bg-gradient-to-br from-yellow-400/20 to-yellow-500/10 backdrop-blur-md border border-yellow-400/30 rounded-2xl p-4 md:p-6"
                     >
-                        <div className="text-gray-300 text-sm mb-2">Balance</div>
-                        <div className={`text-3xl font-bold ${
+                        <div className="text-gray-300 text-xs md:text-sm mb-2">Balance</div>
+                        <div className={`text-2xl md:text-3xl font-bold ${
                             overview.balance >= 0 ? 'text-yellow-400' : 'text-red-400'
                         }`}>
-                            {formatCurrency(overview.balance)}
+                            <span className="md:hidden">{formatCurrencyCompact(overview.balance)}</span>
+                            <span className="hidden md:inline">{formatCurrency(overview.balance)}</span>
                         </div>
                     </motion.div>
                 </div>

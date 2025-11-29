@@ -123,20 +123,20 @@ const QuestionFlow: React.FC<QuestionFlowProps> = ({ onComplete, userProfile: in
                                 x: { type: "spring", stiffness: 300, damping: 30 },
                                 opacity: { duration: 0.2 }
                             }}
-                            className="absolute top-0 left-0 w-full h-full p-6 md:p-8 flex flex-col justify-center"
+                            className="absolute top-0 left-0 w-full h-full p-4 md:p-8 flex flex-col justify-center overflow-y-auto"
                         >
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-8 text-center break-words">
+                            <h2 className="text-lg md:text-2xl font-semibold text-gray-900 mb-4 md:mb-8 text-center break-words px-2">
                                 {currentQuestion.text}
                             </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 px-2">
                                 {currentQuestion.options.map((option) => (
                                     <button
                                         key={option.id}
                                         onClick={() => handleAnswerSelect(currentQuestion, option)}
                                         onKeyDown={(e) => handleKeyDown(e, currentQuestion, option)}
-                                        className="w-full text-left p-4 bg-gray-200 rounded-xl hover:bg-gray-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 transition-all duration-200"
+                                        className="w-full text-left p-3 md:p-4 bg-gray-200 rounded-xl hover:bg-gray-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 transition-all duration-200"
                                     >
-                                        <span className="font-medium text-gray-900 break-words">{option.text}</span>
+                                        <span className="font-medium text-gray-900 text-sm md:text-base break-words leading-snug">{option.text}</span>
                                     </button>
                                 ))}
                             </div>

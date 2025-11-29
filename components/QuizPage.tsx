@@ -9,10 +9,10 @@ interface QuizPageProps {
 }
 
 const FeatureCard: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ icon, title, children }) => (
-    <div className="bg-yellow-400/10 border border-yellow-400/20 p-6 rounded-lg text-center flex flex-col items-center">
-        <div className="bg-yellow-400/20 rounded-full p-3 mb-4">{icon}</div>
-        <h3 className="font-semibold text-white mb-2">{title}</h3>
-        <p className="text-sm text-gray-400">{children}</p>
+    <div className="bg-yellow-400/10 border border-yellow-400/20 p-3 md:p-6 rounded-lg text-center flex flex-col items-center">
+        <div className="bg-yellow-400/20 rounded-full p-2 md:p-3 mb-2 md:mb-4">{icon}</div>
+        <h3 className="font-semibold text-white mb-1 md:mb-2 text-sm md:text-base">{title}</h3>
+        <p className="text-xs md:text-sm text-gray-400">{children}</p>
     </div>
 );
 
@@ -59,16 +59,18 @@ const QuizPage: React.FC<QuizPageProps> = ({ onStart, onBack }) => {
                     </p>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
                     <FeatureCard icon={<TargetIcon />} title="Personalized Goals">
                         Understand your financial priorities and create a roadmap
                     </FeatureCard>
                     <FeatureCard icon={<BrainCircuitIcon />} title="Smart Analysis">
                         AI-powered insights into your financial behavior patterns
                     </FeatureCard>
-                    <FeatureCard icon={<ZapIcon />} title="Quick & Easy">
-                        Complete in under 3 minutes with simple multiple choice
-                    </FeatureCard>
+                    <div className="col-span-2 md:col-span-1">
+                        <FeatureCard icon={<ZapIcon />} title="Quick & Easy">
+                            Complete in under 3 minutes with simple multiple choice
+                        </FeatureCard>
+                    </div>
                 </div>
 
                 <form onSubmit={handleSubmit} className="bg-gray-700/30 border border-white/10 rounded-lg p-6 mb-8">

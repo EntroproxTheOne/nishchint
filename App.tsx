@@ -6,8 +6,9 @@ import QuestionFlow from './components/QuestionFlow';
 import SummaryPage from './components/SummaryPage';
 import MoneyTracker from './components/MoneyTracker';
 import GoalTracker from './components/GoalTracker';
+import Dashboard from './components/Dashboard';
 import { Page, UserProfile } from './types';
-import { HomeIcon, MoneyIcon, GoalIcon, SettingsIcon } from './components/ui/Icons';
+import { HomeIcon, MoneyIcon, GoalIcon, SettingsIcon, DashboardIcon } from './components/ui/Icons';
 
 // CSS for the Mic Button (2.0 style)
 const buttonStyles = `
@@ -46,7 +47,7 @@ const buttonStyles = `
 }
 `;
 
-type TabId = 'money' | 'goal' | 'home';
+type TabId = 'money' | 'goal' | 'home' | 'dashboard';
 
 interface TabItem {
     id: TabId;
@@ -55,6 +56,7 @@ interface TabItem {
 }
 
 const TABS_DATA: Record<TabId, TabItem> = {
+    dashboard: { id: 'dashboard', label: 'Dashboard', icon: DashboardIcon },
     money: { id: 'money', label: 'Money Tracker', icon: MoneyIcon },
     goal: { id: 'goal', label: 'Goal Tracker', icon: GoalIcon },
     home: { id: 'home', label: 'Home', icon: HomeIcon },
@@ -67,8 +69,8 @@ const App: React.FC = () => {
     const [questionFlowKey, setQuestionFlowKey] = useState(Date.now());
 
     // 2.0 Features - Ribbon navigation
-    const [leftTabs, setLeftTabs] = useState<TabId[]>(['money', 'goal', 'home']);
-    const [activeTab, setActiveTab] = useState<TabId | 'settings' | 'quiz' | 'summary'>('home');
+    const [leftTabs, setLeftTabs] = useState<TabId[]>(['dashboard', 'money', 'goal', 'home']);
+    const [activeTab, setActiveTab] = useState<TabId | 'settings' | 'quiz' | 'summary'>('dashboard');
     
     // Mic/voice state
     const [isListening, setIsListening] = useState(false);
@@ -111,7 +113,9 @@ const App: React.FC = () => {
         // If currently on a special page (quiz, summary, settings), just switch
         if (['quiz', 'summary', 'settings'].includes(activeTab)) {
             setActiveTab(clickedId);
-            if (clickedId === 'money') {
+            if (clickedId === 'dashboard') {
+                setCurrentPage(Page.LANDING);
+            } else if (clickedId === 'money') {
                 setCurrentPage(Page.MONEY_TRACKER);
             } else if (clickedId === 'goal') {
                 setCurrentPage(Page.GOAL_TRACKER);
@@ -133,9 +137,11 @@ const App: React.FC = () => {
         }
 
         setActiveTab(clickedId);
-        
+
         // Update current page based on tab
-        if (clickedId === 'money') {
+        if (clickedId === 'dashboard') {
+            setCurrentPage(Page.LANDING); // Keep page state, dashboard is a new view
+        } else if (clickedId === 'money') {
             setCurrentPage(Page.MONEY_TRACKER);
         } else if (clickedId === 'goal') {
             setCurrentPage(Page.GOAL_TRACKER);
@@ -195,13 +201,15 @@ const App: React.FC = () => {
 
         // Regular tab-based navigation
         switch (activeTab) {
+            case 'dashboard':
+                return <Dashboard />;
             case 'money':
                 return <MoneyTracker />;
             case 'goal':
                 return <GoalTracker />;
             case 'home':
                 return (
-                    <HomePage 
+                    <HomePage
                         onMicClick={handleMicClick}
                         onQuizClick={handleQuizPageClick}
                         isListening={isListening}
@@ -210,9 +218,9 @@ const App: React.FC = () => {
             case 'settings':
                 return (
                     <div className="text-center">
-                        <motion.div 
-                            initial={{ opacity: 0 }} 
-                            animate={{ opacity: 1 }} 
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
                             className="text-white text-2xl font-bold"
                         >
                             Settings (Coming Soon)
@@ -222,7 +230,7 @@ const App: React.FC = () => {
                 );
             default:
                 return (
-                    <HomePage 
+                    <HomePage
                         onMicClick={handleMicClick}
                         onQuizClick={handleQuizPageClick}
                         isListening={isListening}

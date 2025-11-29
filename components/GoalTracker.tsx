@@ -199,6 +199,14 @@ const GoalTracker: React.FC = () => {
         }).format(amount);
     };
 
+    // Format currency compact for mobile (33000 -> $33k)
+    const formatCurrencyCompact = (amount: number) => {
+        if (amount >= 1000) {
+            return `$${(amount / 1000).toFixed(amount >= 10000 ? 0 : 1)}k`;
+        }
+        return `$${amount}`;
+    };
+
     // Calculate progress percentage
     const getProgress = (goal: FinancialGoal) => {
         return Math.min((goal.currentAmount / goal.targetAmount) * 100, 100);
@@ -257,15 +265,15 @@ const GoalTracker: React.FC = () => {
                 </motion.div>
 
                 {/* Summary Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-8">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.1 }}
-                        className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-6"
+                        className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-4 md:p-6"
                     >
-                        <div className="text-gray-400 text-sm mb-2">Active Goals</div>
-                        <div className="text-3xl font-bold text-white">
+                        <div className="text-gray-400 text-xs md:text-sm mb-2">Active Goals</div>
+                        <div className="text-2xl md:text-3xl font-bold text-white">
                             {existingGoals.length}
                         </div>
                     </motion.div>
@@ -274,11 +282,16 @@ const GoalTracker: React.FC = () => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.2 }}
-                        className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-6"
+                        className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-4 md:p-6"
                     >
-                        <div className="text-gray-400 text-sm mb-2">Total Target</div>
-                        <div className="text-3xl font-bold text-yellow-400">
-                            {formatCurrency(existingGoals.reduce((sum, g) => sum + g.targetAmount, 0))}
+                        <div className="text-gray-400 text-xs md:text-sm mb-2">Total Target</div>
+                        <div className="text-2xl md:text-3xl font-bold text-yellow-400">
+                            <span className="md:hidden">
+                                {formatCurrencyCompact(existingGoals.reduce((sum, g) => sum + g.targetAmount, 0))}
+                            </span>
+                            <span className="hidden md:inline">
+                                {formatCurrency(existingGoals.reduce((sum, g) => sum + g.targetAmount, 0))}
+                            </span>
                         </div>
                     </motion.div>
 
@@ -286,11 +299,16 @@ const GoalTracker: React.FC = () => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-6"
+                        className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-2xl p-4 md:p-6"
                     >
-                        <div className="text-gray-400 text-sm mb-2">Total Saved</div>
-                        <div className="text-3xl font-bold text-green-400">
-                            {formatCurrency(existingGoals.reduce((sum, g) => sum + g.currentAmount, 0))}
+                        <div className="text-gray-400 text-xs md:text-sm mb-2">Total Saved</div>
+                        <div className="text-2xl md:text-3xl font-bold text-green-400">
+                            <span className="md:hidden">
+                                {formatCurrencyCompact(existingGoals.reduce((sum, g) => sum + g.currentAmount, 0))}
+                            </span>
+                            <span className="hidden md:inline">
+                                {formatCurrency(existingGoals.reduce((sum, g) => sum + g.currentAmount, 0))}
+                            </span>
                         </div>
                     </motion.div>
 
@@ -298,10 +316,10 @@ const GoalTracker: React.FC = () => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.4 }}
-                        className="bg-gradient-to-br from-yellow-400/20 to-yellow-500/10 backdrop-blur-md border border-yellow-400/30 rounded-2xl p-6"
+                        className="bg-gradient-to-br from-yellow-400/20 to-yellow-500/10 backdrop-blur-md border border-yellow-400/30 rounded-2xl p-4 md:p-6"
                     >
-                        <div className="text-gray-300 text-sm mb-2">Overall Progress</div>
-                        <div className="text-3xl font-bold text-yellow-400">
+                        <div className="text-gray-300 text-xs md:text-sm mb-2">Overall Progress</div>
+                        <div className="text-2xl md:text-3xl font-bold text-yellow-400">
                             {Math.round(
                                 (existingGoals.reduce((sum, g) => sum + g.currentAmount, 0) /
                                     existingGoals.reduce((sum, g) => sum + g.targetAmount, 0)) * 100
